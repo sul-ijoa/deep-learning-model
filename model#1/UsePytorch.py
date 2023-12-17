@@ -189,6 +189,11 @@ def visualize_single_image(model, image_path, class_names):
 
         model.train(mode=was_training)
 
+# 학습이 끝난 모델을 저장할 경로 지정
+saved_model_path = "c:\\sulijoa_ai\\deep-learning-model\\model#1\\TrainedModel\\saved_model.pth"
+
+# 학습된 모델 저장
+torch.save(model_1.state_dict(), saved_model_path)
 
 # Specify the path to the image you want to visualize
 image_path = "c:\\sulijoa_ai\\deep-learning-model\\model#1\\dataset\\Valid\\ramen\\5606.jpg"  # Update with the actual path
