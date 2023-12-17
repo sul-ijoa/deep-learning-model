@@ -1,6 +1,6 @@
 # model#1 (pytorch 라이브러리 사용)
 
-# 변수 값 설정 (직전과 비교하여 이미지 전처리 사이즈 늘림)
+# 변수 값 설정 (배치사이즈 32 => 20 변경)
 Train : transforms.RandomResizedCrop(224)
 Valid : transforms.Resize(256),
         transforms.CenterCrop(224)
@@ -8,84 +8,84 @@ batch_size=32
 epoch=15
 step_size=7, gamma=0.1
 
-# 결과 (약 60분 소요, 정확도 0.9392)
+# 결과 (약 60분 소요, 정확도 0.9336)
 Epoch 0/14
 ----------
-Train Loss: 1.0030 Acc: 0.6363
-Valid Loss: 0.6442 Acc: 0.7544
+Train Loss: 1.1246 Acc: 0.5832
+Valid Loss: 0.7387 Acc: 0.7280
 
 Epoch 1/14
 ----------
-Train Loss: 0.7282 Acc: 0.7387
-Valid Loss: 0.5866 Acc: 0.7696
+Train Loss: 0.8336 Acc: 0.6941
+Valid Loss: 0.9609 Acc: 0.6544
 
 Epoch 2/14
 ----------
-Train Loss: 0.6806 Acc: 0.7504
-Valid Loss: 0.5766 Acc: 0.7800
+Train Loss: 0.8071 Acc: 0.6925
+Valid Loss: 0.6173 Acc: 0.7696
 
 Epoch 3/14
 ----------
-Train Loss: 0.6310 Acc: 0.7747
-Valid Loss: 0.5581 Acc: 0.8224
+Train Loss: 0.7262 Acc: 0.7331
+Valid Loss: 0.4542 Acc: 0.8408
 
 Epoch 4/14
 ----------
-Train Loss: 0.6207 Acc: 0.7693
-Valid Loss: 0.3827 Acc: 0.8632
+Train Loss: 0.6900 Acc: 0.7376
+Valid Loss: 0.4289 Acc: 0.8448
 
 Epoch 5/14
 ----------
-Train Loss: 0.5800 Acc: 0.7843
-Valid Loss: 0.4334 Acc: 0.8488
+Train Loss: 0.6640 Acc: 0.7512
+Valid Loss: 0.4728 Acc: 0.8216
 
 Epoch 6/14
 ----------
-Train Loss: 0.5710 Acc: 0.7891
-Valid Loss: 0.4196 Acc: 0.8464
+Train Loss: 0.6403 Acc: 0.7640
+Valid Loss: 0.3403 Acc: 0.8816
 
 Epoch 7/14
 ----------
-Train Loss: 0.3945 Acc: 0.8557
-Valid Loss: 0.1971 Acc: 0.9280
+Train Loss: 0.4789 Acc: 0.8216
+Valid Loss: 0.2279 Acc: 0.9256
 
 Epoch 8/14
 ----------
-Train Loss: 0.3603 Acc: 0.8661
-Valid Loss: 0.1935 Acc: 0.9376
+Train Loss: 0.4410 Acc: 0.8379
+Valid Loss: 0.2233 Acc: 0.9224
 
 Epoch 9/14
 ----------
-Train Loss: 0.3272 Acc: 0.8797
-Valid Loss: 0.1860 Acc: 0.9432
+Train Loss: 0.4162 Acc: 0.8493
+Valid Loss: 0.2151 Acc: 0.9216
 
 Epoch 10/14
 ----------
-Train Loss: 0.3252 Acc: 0.8837
-Valid Loss: 0.1683 Acc: 0.9432
+Train Loss: 0.3811 Acc: 0.8635
+Valid Loss: 0.2043 Acc: 0.9240
 
 Epoch 11/14
 ----------
-Train Loss: 0.3028 Acc: 0.8875
-Valid Loss: 0.1688 Acc: 0.9408
+Train Loss: 0.3774 Acc: 0.8549
+Valid Loss: 0.1987 Acc: 0.9320
 
 Epoch 12/14
 ----------
-Train Loss: 0.3158 Acc: 0.8840
-Valid Loss: 0.1781 Acc: 0.9336
+Train Loss: 0.3646 Acc: 0.8675
+Valid Loss: 0.1968 Acc: 0.9288
 
 Epoch 13/14
 ----------
-Train Loss: 0.3049 Acc: 0.8888
-Valid Loss: 0.1804 Acc: 0.9400
+Train Loss: 0.3555 Acc: 0.8773
+Valid Loss: 0.1959 Acc: 0.9296
 
 Epoch 14/14
 ----------
-Train Loss: 0.2762 Acc: 0.8989
-Valid Loss: 0.1730 Acc: 0.9392
+Train Loss: 0.3499 Acc: 0.8744
+Valid Loss: 0.1894 Acc: 0.9336
 
-Training complete in 60m 38s
-Best Valid Acc: 0.943200
+Training complete in 59m 47s
+Best Valid Acc: 0.933600
 
 
 # sul-ijoa_DeepLearning
