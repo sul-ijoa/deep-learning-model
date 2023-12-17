@@ -4,7 +4,7 @@
 Train : transforms.RandomResizedCrop(224)
 Valid : transforms.Resize(256),
         transforms.CenterCrop(224)
-batch_size=32
+batch_size=20
 epoch=15
 step_size=7, gamma=0.1
 
