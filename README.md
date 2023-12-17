@@ -1,120 +1,80 @@
 # model#2 (tensorflow 사용)
 
-# 변수 값 설정 (epoch 15 => 25 변경)
+# 변수 값 설정 (배치사이즈 20 => 32, epoch 25 => 15 변경)
 image = load_img(imagePath, target_size=(224, 224))
-batch_size=20
-epochs=25
+batch_size=32
+epochs=15
 
-# 결과 (약 20분 소요, 정확도 0.9272)
-Epoch 1/25
+# 결과 (약 20분 소요, 정확도 0.9220)
+Epoch 1/15
 WARNING:tensorflow:From C:\Users\Dayeon\anaconda3\envs\ck\Lib\site-packages\keras\src\utils\tf_utils.py:492: The name tf.ragged.RaggedTensorValue is deprecated. Please use tf.compat.v1.ragged.RaggedTensorValue instead.
 
 WARNING:tensorflow:From C:\Users\Dayeon\anaconda3\envs\ck\Lib\site-packages\keras\src\engine\base_layer_utils.py:384: The name tf.executing_eagerly_outside_functions is deprecated. Please use tf.compat.v1.executing_eagerly_outside_functions instead.
 
-216/228 [===========================>..] - ETA: 0s - loss: 1.6233 - accuracy: 0.5845  
-Epoch 1: val_loss improved from inf to 0.78371, saving model to scratchmodel.best.hdf5
-228/228 [==============================] - 2s 3ms/step - loss: 1.5808 - accuracy: 0.5917 - val_loss: 0.7837 - val_accuracy: 0.7073
-Epoch 2/25
-216/228 [===========================>..] - ETA: 0s - loss: 0.7500 - accuracy: 0.7377
-Epoch 2: val_loss improved from 0.78371 to 0.52371, saving model to scratchmodel.best.hdf5
-228/228 [==============================] - 1s 2ms/step - loss: 0.7481 - accuracy: 0.7370 - val_loss: 0.5237 - val_accuracy: 0.8063
-Epoch 3/25
-215/228 [===========================>..] - ETA: 0s - loss: 0.5846 - accuracy: 0.7851
-Epoch 3: val_loss improved from 0.52371 to 0.42062, saving model to scratchmodel.best.hdf5
-228/228 [==============================] - 1s 3ms/step - loss: 0.5808 - accuracy: 0.7857 - val_loss: 0.4206 - val_accuracy: 0.8492
-Epoch 4/25
-218/228 [===========================>..] - ETA: 0s - loss: 0.5192 - accuracy: 0.8158
-Epoch 4: val_loss improved from 0.42062 to 0.38777, saving model to scratchmodel.best.hdf5
-228/228 [==============================] - 1s 3ms/step - loss: 0.5198 - accuracy: 0.8149 - val_loss: 0.3878 - val_accuracy: 0.8536
-Epoch 5/25
-223/228 [============================>.] - ETA: 0s - loss: 0.4651 - accuracy: 0.8278
-Epoch 5: val_loss improved from 0.38777 to 0.38355, saving model to scratchmodel.best.hdf5
-228/228 [==============================] - 1s 3ms/step - loss: 0.4677 - accuracy: 0.8261 - val_loss: 0.3835 - val_accuracy: 0.8553
-Epoch 6/25
-226/228 [============================>.] - ETA: 0s - loss: 0.4369 - accuracy: 0.8374
-Epoch 6: val_loss improved from 0.38355 to 0.33175, saving model to scratchmodel.best.hdf5
-228/228 [==============================] - 1s 2ms/step - loss: 0.4371 - accuracy: 0.8378 - val_loss: 0.3317 - val_accuracy: 0.8731
-Epoch 7/25
-212/228 [==========================>...] - ETA: 0s - loss: 0.4038 - accuracy: 0.8512
-Epoch 7: val_loss improved from 0.33175 to 0.32015, saving model to scratchmodel.best.hdf5
-228/228 [==============================] - 0s 2ms/step - loss: 0.4074 - accuracy: 0.8492 - val_loss: 0.3202 - val_accuracy: 0.8737
-Epoch 8/25
-210/228 [==========================>...] - ETA: 0s - loss: 0.3998 - accuracy: 0.8548
-Epoch 8: val_loss improved from 0.32015 to 0.30191, saving model to scratchmodel.best.hdf5
-228/228 [==============================] - 0s 2ms/step - loss: 0.4026 - accuracy: 0.8555 - val_loss: 0.3019 - val_accuracy: 0.8826
-Epoch 9/25
-212/228 [==========================>...] - ETA: 0s - loss: 0.3708 - accuracy: 0.8613
-Epoch 9: val_loss improved from 0.30191 to 0.28368, saving model to scratchmodel.best.hdf5
-228/228 [==============================] - 0s 2ms/step - loss: 0.3716 - accuracy: 0.8619 - val_loss: 0.2837 - val_accuracy: 0.8971
-Epoch 10/25
-215/228 [===========================>..] - ETA: 0s - loss: 0.3705 - accuracy: 0.8572
-Epoch 10: val_loss did not improve from 0.28368
-228/228 [==============================] - 0s 2ms/step - loss: 0.3682 - accuracy: 0.8580 - val_loss: 0.3091 - val_accuracy: 0.8804
-Epoch 11/25
-202/228 [=========================>....] - ETA: 0s - loss: 0.3590 - accuracy: 0.8639
-Epoch 11: val_loss improved from 0.28368 to 0.26237, saving model to scratchmodel.best.hdf5
-228/228 [==============================] - 0s 2ms/step - loss: 0.3638 - accuracy: 0.8628 - val_loss: 0.2624 - val_accuracy: 0.9093
-Epoch 12/25
-217/228 [===========================>..] - ETA: 0s - loss: 0.3593 - accuracy: 0.8620
-Epoch 12: val_loss did not improve from 0.26237
-228/228 [==============================] - 0s 2ms/step - loss: 0.3608 - accuracy: 0.8623 - val_loss: 0.2729 - val_accuracy: 0.8993
-Epoch 13/25
-216/228 [===========================>..] - ETA: 0s - loss: 0.3527 - accuracy: 0.8711
-Epoch 13: val_loss did not improve from 0.26237
-228/228 [==============================] - 0s 2ms/step - loss: 0.3523 - accuracy: 0.8707 - val_loss: 0.2645 - val_accuracy: 0.9043
-Epoch 14/25
-217/228 [===========================>..] - ETA: 0s - loss: 0.3375 - accuracy: 0.8747
-Epoch 14: val_loss improved from 0.26237 to 0.24951, saving model to scratchmodel.best.hdf5
-228/228 [==============================] - 0s 2ms/step - loss: 0.3336 - accuracy: 0.8753 - val_loss: 0.2495 - val_accuracy: 0.9082
-Epoch 15/25
-213/228 [===========================>..] - ETA: 0s - loss: 0.3306 - accuracy: 0.8746
-Epoch 15: val_loss did not improve from 0.24951
-228/228 [==============================] - 0s 2ms/step - loss: 0.3301 - accuracy: 0.8749 - val_loss: 0.2517 - val_accuracy: 0.9110
-Epoch 16/25
-218/228 [===========================>..] - ETA: 0s - loss: 0.3406 - accuracy: 0.8732
-Epoch 16: val_loss improved from 0.24951 to 0.24830, saving model to scratchmodel.best.hdf5
-228/228 [==============================] - 0s 2ms/step - loss: 0.3408 - accuracy: 0.8738 - val_loss: 0.2483 - val_accuracy: 0.9071
-Epoch 17/25
-216/228 [===========================>..] - ETA: 0s - loss: 0.3318 - accuracy: 0.8704
-Epoch 17: val_loss improved from 0.24830 to 0.24694, saving model to scratchmodel.best.hdf5
-228/228 [==============================] - 0s 2ms/step - loss: 0.3345 - accuracy: 0.8711 - val_loss: 0.2469 - val_accuracy: 0.9093
-Epoch 18/25
-215/228 [===========================>..] - ETA: 0s - loss: 0.3318 - accuracy: 0.8728
-Epoch 18: val_loss improved from 0.24694 to 0.24617, saving model to scratchmodel.best.hdf5
-228/228 [==============================] - 0s 2ms/step - loss: 0.3363 - accuracy: 0.8722 - val_loss: 0.2462 - val_accuracy: 0.9087
-Epoch 19/25
-216/228 [===========================>..] - ETA: 0s - loss: 0.3155 - accuracy: 0.8775
-Epoch 19: val_loss did not improve from 0.24617
-228/228 [==============================] - 0s 2ms/step - loss: 0.3159 - accuracy: 0.8771 - val_loss: 0.2497 - val_accuracy: 0.9149
-Epoch 20/25
-203/228 [=========================>....] - ETA: 0s - loss: 0.3054 - accuracy: 0.8887
-Epoch 20: val_loss did not improve from 0.24617
-228/228 [==============================] - 0s 2ms/step - loss: 0.3103 - accuracy: 0.8850 - val_loss: 0.2477 - val_accuracy: 0.9110
-Epoch 21/25
-212/228 [==========================>...] - ETA: 0s - loss: 0.3184 - accuracy: 0.8828
-Epoch 21: val_loss improved from 0.24617 to 0.20911, saving model to scratchmodel.best.hdf5
-228/228 [==============================] - 0s 2ms/step - loss: 0.3166 - accuracy: 0.8830 - val_loss: 0.2091 - val_accuracy: 0.9304
-Epoch 22/25
-215/228 [===========================>..] - ETA: 0s - loss: 0.2980 - accuracy: 0.8872
-Epoch 22: val_loss did not improve from 0.20911
-228/228 [==============================] - 0s 2ms/step - loss: 0.3023 - accuracy: 0.8850 - val_loss: 0.2121 - val_accuracy: 0.9299
-Epoch 23/25
-215/228 [===========================>..] - ETA: 0s - loss: 0.2826 - accuracy: 0.8963
-Epoch 23: val_loss did not improve from 0.20911
-228/228 [==============================] - 0s 2ms/step - loss: 0.2868 - accuracy: 0.8948 - val_loss: 0.2228 - val_accuracy: 0.9299
-Epoch 24/25
-212/228 [==========================>...] - ETA: 0s - loss: 0.2916 - accuracy: 0.8903
-Epoch 24: val_loss did not improve from 0.20911
-228/228 [==============================] - 0s 2ms/step - loss: 0.3002 - accuracy: 0.8880 - val_loss: 0.2357 - val_accuracy: 0.9132
-Epoch 25/25
-205/228 [=========================>....] - ETA: 0s - loss: 0.3045 - accuracy: 0.8900
-Epoch 25: val_loss did not improve from 0.20911
-228/228 [==============================] - 0s 2ms/step - loss: 0.3042 - accuracy: 0.8885 - val_loss: 0.2157 - val_accuracy: 0.9260
-30/30 [==============================] - 0s 1ms/step
+139/143 [============================>.] - ETA: 0s - loss: 2.4830 - accuracy: 0.5263   
+Epoch 1: val_loss improved from inf to 0.73939, saving model to scratchmodel.best.hdf5
+143/143 [==============================] - 3s 9ms/step - loss: 2.4484 - accuracy: 0.5293 - val_loss: 0.7394 - val_accuracy: 0.7195
+Epoch 2/15
+123/143 [========================>.....] - ETA: 0s - loss: 0.8299 - accuracy: 0.6951
+Epoch 2: val_loss improved from 0.73939 to 0.54356, saving model to scratchmodel.best.hdf5
+143/143 [==============================] - 1s 5ms/step - loss: 0.8229 - accuracy: 0.6997 - val_loss: 0.5436 - val_accuracy: 0.7896
+Epoch 3/15
+134/143 [===========================>..] - ETA: 0s - loss: 0.6516 - accuracy: 0.7610
+Epoch 3: val_loss improved from 0.54356 to 0.46899, saving model to scratchmodel.best.hdf5
+143/143 [==============================] - 1s 5ms/step - loss: 0.6529 - accuracy: 0.7592 - val_loss: 0.4690 - val_accuracy: 0.8236
+Epoch 4/15
+142/143 [============================>.] - ETA: 0s - loss: 0.5569 - accuracy: 0.7960
+Epoch 4: val_loss improved from 0.46899 to 0.39908, saving model to scratchmodel.best.hdf5
+143/143 [==============================] - 1s 5ms/step - loss: 0.5566 - accuracy: 0.7960 - val_loss: 0.3991 - val_accuracy: 0.8592
+Epoch 5/15
+133/143 [==========================>...] - ETA: 0s - loss: 0.5056 - accuracy: 0.8170
+Epoch 5: val_loss improved from 0.39908 to 0.36308, saving model to scratchmodel.best.hdf5
+143/143 [==============================] - 1s 5ms/step - loss: 0.5080 - accuracy: 0.8138 - val_loss: 0.3631 - val_accuracy: 0.8731
+Epoch 6/15
+130/143 [==========================>...] - ETA: 0s - loss: 0.4642 - accuracy: 0.8293
+Epoch 6: val_loss improved from 0.36308 to 0.35305, saving model to scratchmodel.best.hdf5
+143/143 [==============================] - 1s 5ms/step - loss: 0.4639 - accuracy: 0.8292 - val_loss: 0.3530 - val_accuracy: 0.8748
+Epoch 7/15
+140/143 [============================>.] - ETA: 0s - loss: 0.4394 - accuracy: 0.8384
+Epoch 7: val_loss improved from 0.35305 to 0.33200, saving model to scratchmodel.best.hdf5
+143/143 [==============================] - 1s 5ms/step - loss: 0.4408 - accuracy: 0.8371 - val_loss: 0.3320 - val_accuracy: 0.8792
+Epoch 8/15
+135/143 [===========================>..] - ETA: 0s - loss: 0.4272 - accuracy: 0.8387
+Epoch 8: val_loss improved from 0.33200 to 0.30772, saving model to scratchmodel.best.hdf5
+143/143 [==============================] - 1s 5ms/step - loss: 0.4260 - accuracy: 0.8400 - val_loss: 0.3077 - val_accuracy: 0.8887
+Epoch 9/15
+135/143 [===========================>..] - ETA: 0s - loss: 0.3934 - accuracy: 0.8586
+Epoch 9: val_loss improved from 0.30772 to 0.29975, saving model to scratchmodel.best.hdf5
+143/143 [==============================] - 1s 6ms/step - loss: 0.3943 - accuracy: 0.8569 - val_loss: 0.2998 - val_accuracy: 0.8870
+Epoch 10/15
+131/143 [==========================>...] - ETA: 0s - loss: 0.3876 - accuracy: 0.8564
+Epoch 10: val_loss improved from 0.29975 to 0.29024, saving model to scratchmodel.best.hdf5
+143/143 [==============================] - 1s 5ms/step - loss: 0.3878 - accuracy: 0.8573 - val_loss: 0.2902 - val_accuracy: 0.8987
+Epoch 11/15
+138/143 [===========================>..] - ETA: 0s - loss: 0.3704 - accuracy: 0.8644
+Epoch 11: val_loss did not improve from 0.29024
+143/143 [==============================] - 1s 5ms/step - loss: 0.3769 - accuracy: 0.8628 - val_loss: 0.3099 - val_accuracy: 0.8909
+Epoch 12/15
+135/143 [===========================>..] - ETA: 0s - loss: 0.3718 - accuracy: 0.8630
+Epoch 12: val_loss did not improve from 0.29024
+143/143 [==============================] - 1s 5ms/step - loss: 0.3706 - accuracy: 0.8634 - val_loss: 0.2943 - val_accuracy: 0.8965
+Epoch 13/15
+136/143 [===========================>..] - ETA: 0s - loss: 0.3620 - accuracy: 0.8716
+Epoch 13: val_loss improved from 0.29024 to 0.27649, saving model to scratchmodel.best.hdf5
+143/143 [==============================] - 1s 6ms/step - loss: 0.3623 - accuracy: 0.8714 - val_loss: 0.2765 - val_accuracy: 0.9015
+Epoch 14/15
+132/143 [==========================>...] - ETA: 0s - loss: 0.3606 - accuracy: 0.8662
+Epoch 14: val_loss improved from 0.27649 to 0.27470, saving model to scratchmodel.best.hdf5
+143/143 [==============================] - 1s 5ms/step - loss: 0.3594 - accuracy: 0.8665 - val_loss: 0.2747 - val_accuracy: 0.9037
+Epoch 15/15
+133/143 [==========================>...] - ETA: 0s - loss: 0.3486 - accuracy: 0.8745
+Epoch 15: val_loss improved from 0.27470 to 0.25564, saving model to scratchmodel.best.hdf5
+143/143 [==============================] - 1s 6ms/step - loss: 0.3562 - accuracy: 0.8735 - val_loss: 0.2556 - val_accuracy: 0.9076
+30/30 [==============================] - 0s 4ms/step
 
-Accuracy on Test Data:  0.9272918861959958
+Accuracy on Test Data:  0.9220231822971549
 
-Number of correctly identified imgaes:  880
+Number of correctly identified imgaes:  875
 
 
 # sul-ijoa_DeepLearning
