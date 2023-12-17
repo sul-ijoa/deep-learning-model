@@ -46,7 +46,7 @@ image_datasets = {
 
 dataloaders = {
     x: torch.utils.data.DataLoader(image_datasets[x],
-                                   batch_size=32,
+                                   batch_size=20,
                                    shuffle=True,
                                 ) for x in ['Train', 'Valid']
 }
@@ -191,7 +191,7 @@ def visualize_single_image(model, image_path, class_names):
 
 
 # Specify the path to the image you want to visualize
-image_path = "c:\\sulijoa_ai\\deep-learning-model\\model#1\\dataset\\Valid\\ramen\\5025.jpg"  # Update with the actual path
+image_path = "c:\\sulijoa_ai\\deep-learning-model\\model#1\\dataset\\Valid\\ramen\\5606.jpg"  # Update with the actual path
 
 # Specify the class names
 class_names = image_datasets['Train'].classes  # Update with the actual class names
