@@ -32,7 +32,7 @@ y_test = np_utils.to_categorical(test_y, num_class)
 
 # load the VGG16 network and initialize the label encoder
 print("[INFO] loading network...")
-model = VGG16(weights='imagenet', include_top=False)
+base_model = VGG19(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
 
 def create_features(dataset, pre_model):
 
@@ -55,19 +55,19 @@ def create_features(dataset, pre_model):
         x_scratch.append(image)
 
     x = np.vstack(x_scratch)
-    features = pre_model.predict(x, batch_size=32)
+    features = pre_model.predict(x, batch_size=8)
     features_flatten = features.reshape((features.shape[0], 7 * 7 * 512))
     return x, features, features_flatten
 
-train_x, train_features, train_features_flatten = create_features(train, model)
-val_x, val_features, val_features_flatten = create_features(val, model)
-test_x, test_features, test_features_flatten = create_features(test, model)
+train_x, train_features, train_features_flatten = create_features(train, base_model)
+val_x, val_features, val_features_flatten = create_features(val, base_model)
+test_x, test_features, test_features_flatten = create_features(test, base_model)
 
 print(train_x.shape, train_features.shape, train_features_flatten.shape)
 print(val_x.shape, val_features.shape, val_features_flatten.shape)
 print(test_x.shape, test_features.shape, test_features_flatten.shape)
 
-base_model = VGG19(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
+
 for layer in base_model.layers:
     layer.trainable = False
 
@@ -94,9 +94,9 @@ datagen = ImageDataGenerator(
 )
 
 datagen.fit(train_x)
-history = model.fit(datagen.flow(train_x, y_train, batch_size=32),
+history = model.fit(datagen.flow(train_x, y_train, batch_size=8),
                     validation_data=(val_x, y_val),
-                    epochs=10,
+                    epochs=40,
                     callbacks=[ModelCheckpoint('1vgg19_finetuned.h5', save_best_only=True)])
 
 loss, accuracy = model.evaluate(test_x, y_test)
