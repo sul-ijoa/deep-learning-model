@@ -1,0 +1,7 @@
+model/dataset/
+model/dataset_preprocessed/train/
+model/dataset_preprocessed/valid/
+model/dataset_preprocessed/test/
+model/DataPreProcess.py
+model/PredictImage.py
+model/UseTensorflow.py
