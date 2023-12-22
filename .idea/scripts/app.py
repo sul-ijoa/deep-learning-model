@@ -1,16 +1,19 @@
 from flask import Flask, request, jsonify
 import io
 import os
-import requests
 import json
-import shutil
 import numpy as np
+
 from google.cloud import vision
 from keras.preprocessing.image import img_to_array, load_img
 from keras.models import load_model
 from tensorflow.python.keras.utils import np_utils
 
+from flask_cors import CORS
+
 app = Flask(__name__)
+# localhost:3000에서의 요청을 허용
+CORS(app, origins='http://localhost:3000')
 
 # 음식 라벨 정보 가져오기
 food_label_path = 'model/food_label.json'
