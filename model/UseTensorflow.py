@@ -1,13 +1,23 @@
 import os
 import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt;
+import tensorflow as tf
+import random
+# Importing sklearn libraries
+from sklearn.model_selection import GridSearchCV
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix, accuracy_score
+
+
+# Importing Keras libraries
 from tensorflow.python.keras.utils import np_utils
 from keras.models import Sequential
+from keras.applications import imagenet_utils, VGG16
 from keras.callbacks import ModelCheckpoint
-from keras.applications import VGG16, VGG19, imagenet_utils
-from keras.utils import load_img, img_to_array, to_categorical
-from keras.layers import Dense, Flatten, Dropout
-from keras.optimizers import Adam
-from keras.preprocessing.image import ImageDataGenerator
+from keras.utils import load_img, img_to_array
+from keras.layers import Dense, Conv2D, MaxPooling2D
+from keras.layers import Dropout, Flatten, GlobalAveragePooling2D
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -32,7 +42,7 @@ y_test = np_utils.to_categorical(test_y, num_class)
 
 # load the VGG16 network and initialize the label encoder
 print("[INFO] loading network...")
-base_model = VGG19(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
+model = VGG16(weights="imagenet", include_top=False)
 
 def create_features(dataset, pre_model):
 
@@ -59,46 +69,65 @@ def create_features(dataset, pre_model):
     features_flatten = features.reshape((features.shape[0], 7 * 7 * 512))
     return x, features, features_flatten
 
-train_x, train_features, train_features_flatten = create_features(train, base_model)
-val_x, val_features, val_features_flatten = create_features(val, base_model)
-test_x, test_features, test_features_flatten = create_features(test, base_model)
+train_x, train_features, train_features_flatten = create_features(train, model)
+val_x, val_features, val_features_flatten = create_features(val, model)
+test_x, test_features, test_features_flatten = create_features(test, model)
 
 print(train_x.shape, train_features.shape, train_features_flatten.shape)
 print(val_x.shape, val_features.shape, val_features_flatten.shape)
 print(test_x.shape, test_features.shape, test_features_flatten.shape)
 
 
-for layer in base_model.layers:
-    layer.trainable = False
+# model = Sequential()
+# model.add(GlobalAveragePooling2D(input_shape=train_features.shape[1:]))
+# model.add(Dropout(0.3))
+# model.add(Dense(100, activation='relu'))
+# model.add(Dense(6, activation='softmax'))
+# model.summary()
 
-    model = Sequential([
-    base_model,
-    Flatten(),
-    Dense(512, activation='relu'),
-    Dropout(0.5),
-    Dense(256, activation='relu'),
-    Dropout(0.5),
-    Dense(5, activation='softmax')  # Dense에 음식 종류 수
-])
-    
-model.compile(optimizer=Adam(learning_rate=0.0001), loss='categorical_crossentropy', metrics=['accuracy'])
+# Creating a checkpointer
+checkpointer = ModelCheckpoint(filepath='scratchmodellll.best.hdf5',
+                               verbose=1,save_best_only=True)
+model = Sequential()
+model.add(GlobalAveragePooling2D(input_shape=train_features.shape[1:]))
+model.add(Dropout(0.3))
+model.add(Dense(50, activation='relu'))
+model.add(Dense(5, activation='softmax'))
+model.summary()
 
-datagen = ImageDataGenerator(
-    rotation_range=20,
-    zoom_range=0.15,
-    width_shift_range=0.2,
-    height_shift_range=0.2,
-    shear_range=0.15,
-    horizontal_flip=True,
-    fill_mode="nearest"
-)
+# model.compile(loss='categorical_crossentropy', optimizer='adam',
+#               metrics=['accuracy'])
+# history = model.fit(train_features, y_train, batch_size=8, epochs=15,
+#           validation_data=(val_features, y_val), callbacks=[checkpointer],
+#           verbose=1, shuffle=True)
 
-datagen.fit(train_x)
-history = model.fit(datagen.flow(train_x, y_train, batch_size=8),
-                    validation_data=(val_x, y_val),
-                    epochs=40,
-                    callbacks=[ModelCheckpoint('1vgg19_finetuned.h5', save_best_only=True)])
+model.compile(loss='categorical_crossentropy', optimizer='adam',
+              metrics=['accuracy'])
+history = model.fit(train_features, y_train, batch_size=8, epochs=25,
+          validation_data=(val_features, y_val), callbacks=[checkpointer],
+          verbose=1, shuffle=True)
 
-loss, accuracy = model.evaluate(test_x, y_test)
-print(f"Test Loss: {loss}")
-print(f"Test Accuracy: {accuracy}")
+fig = plt.figure(figsize=(10,5))
+
+plt.subplot(1, 2, 1)
+plt.plot(history.history['accuracy'])
+plt.plot(history.history['val_accuracy'])
+plt.title('model accuracy')
+plt.ylabel('accuracy')
+plt.xlabel('epoch')
+plt.legend(['train', 'validation'], loc='upper left')
+
+plt.subplot(1, 2, 2)
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.title('model loss')
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['train', 'test'], loc='upper right')
+plt.show()
+
+preds = np.argmax(model.predict(test_features), axis=1)
+print("\nAccuracy on Test Data: ", accuracy_score(test_y, preds))
+print("\nNumber of correctly identified imgaes: ",
+      accuracy_score(test_y, preds, normalize=False),"\n")
+confusion_matrix(test_y, preds, labels=range(0,5))
