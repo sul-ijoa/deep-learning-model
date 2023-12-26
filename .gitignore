@@ -1,2 +1,5 @@
-model/dataset
-model/dataset_preprocessed
+model/dataset/
+model/dataset_preprocessed/
+model/DataPreProcess.py
+model/PredictImage.py
+model/UseTensorflow.py
