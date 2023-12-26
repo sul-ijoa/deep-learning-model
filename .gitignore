@@ -1,2 +1,2 @@
-# 해당 폴더 git ignore
-dataset/
+model/dataset
+model/dataset_preprocessed

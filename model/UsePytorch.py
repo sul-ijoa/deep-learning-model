@@ -1,4 +1,3 @@
-# Pytorch 라이브러리 이용
 from __future__ import print_function, division
 
 import torch
@@ -7,22 +6,54 @@ import torch.optim as optim
 from torch.optim import lr_scheduler
 import torch.backends.cudnn as cudnn
 import numpy as np
+from torchvision.datasets import DatasetFolder
 import torchvision
 from torchvision import datasets, models, transforms
 import matplotlib.pyplot as plt
 import time
 import os
 import copy
+from torch.utils.data import Dataset
+from PIL import Image
 
-# Train, Valid 폴더의 상위폴더 경로
-PATH = "c:\\sulijoa_ai\\deep-learning-model\\model#1\\dataset"
+
+# Train 폴더의 상위폴더 경로
+PATH = "model\\dataset_preprocessed"
 
 # GPU 활성화 상태 확인하기
 # cuda:0 == GPU, != CPU
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
 
-# 데이터셋 전처리 (Train / Valid)
+
+from torch.utils.data import Dataset
+from torchvision import transforms
+from PIL import Image
+import os
+
+class MyDataset(Dataset):
+    def __init__(self, root, transform=None):
+        self.root = root
+        self.transform = transform
+        self.image_paths = [os.path.join(root, img) for img in os.listdir(root)]
+        self.labels = [int(os.path.basename(img).split('_')[0]) for img in self.image_paths]
+
+    def __len__(self):
+        return len(self.image_paths)
+
+    def __getitem__(self, idx):
+        img_path = self.image_paths[idx]
+        img = Image.open(img_path).convert('RGB')
+
+        if self.transform:
+            img = self.transform(img)
+
+        label = self.labels[idx]
+
+        return img, label
+
+    
+# 데이터셋 전처리 (Train / Valid / Test)
 data_transforms = {
     'Train': transforms.Compose([
         transforms.RandomResizedCrop(224),
@@ -35,32 +66,28 @@ data_transforms = {
         transforms.CenterCrop(224),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    ]),
+    ])
 }
 
-# Train 폴더와 Valid 폴더의 이미지들 전처리
-image_datasets = {
-    x: datasets.ImageFolder(os.path.join(PATH, x),
-                            data_transforms[x]) for x in ['Train', 'Valid']
+# PyTorch 데이터셋으로 변환
+datasets = {
+    'Train': MyDataset(root=os.path.join(PATH, 'Train'), transform=data_transforms['Train']),
+    'Valid': MyDataset(root=os.path.join(PATH, 'Valid'), transform=data_transforms['Valid'])
 }
 
+# PyTorch DataLoader로 변환
 dataloaders = {
-    x: torch.utils.data.DataLoader(image_datasets[x],
-                                   batch_size=20,
-                                   shuffle=True,
-                                ) for x in ['Train', 'Valid']
+    'Train': torch.utils.data.DataLoader(datasets['Train'], batch_size=32, shuffle=True),
+    'Valid': torch.utils.data.DataLoader(datasets['Valid'], batch_size=32, shuffle=False)
 }
 
 # 이미지 개수 확인하기
-dataset_sizes = {x: len(image_datasets[x]) for x in ['Train', 'Valid']}
+dataset_sizes = {x: len(datasets[x]) for x in ['Train', 'Valid']}
 print(dataset_sizes)
 
-# 이미지 학습 훈련용 데이터셋 음식 클래스명 가져오기
-class_names = image_datasets['Train'].classes
-print(class_names)
 
 # 훈련 모델
-def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
+def train_model(model, criterion, optimizer, scheduler, num_epochs):
     since = time.time()
 
     best_model_wts = copy.deepcopy(model.state_dict())
@@ -133,7 +160,10 @@ num_ftrs = model_1.fc.in_features
 
 # Here the size of each output sample is set to 2.
 # Alternatively, it can be generalized to nn.Linear(num_ftrs, len(class_names)).
-model_1.fc = nn.Linear(num_ftrs, len(class_names))
+class_names = list(set(datasets['Train'].labels))  # 클래스 정보를 이용하여 중복을 제거하고 리스트로 변환
+num_classes = len(class_names)
+
+model_1.fc = nn.Linear(num_ftrs, num_classes)
 
 model_1 = model_1.to(device)
 
@@ -147,7 +177,7 @@ optimizer_adam = optim.Adam(model_1.parameters(), lr=0.001)
 exp_lr_scheduler = lr_scheduler.StepLR(optimizer_adam, step_size=7, gamma=0.1)
 
 model_resnetft = train_model(model_1, criterion, optimizer_adam, exp_lr_scheduler,
-                       num_epochs=15)
+                       num_epochs=10)
 
 # 이미지 예측
 import torch
@@ -190,16 +220,16 @@ def visualize_single_image(model, image_path, class_names):
         model.train(mode=was_training)
 
 # 학습이 끝난 모델을 저장할 경로 지정
-saved_model_path = "c:\\sulijoa_ai\\deep-learning-model\\model#1\\TrainedModel\\saved_model.pth"
+saved_model_path = "saved_model.pth"
 
 # 학습된 모델 저장
 torch.save(model_1.state_dict(), saved_model_path)
 
 # Specify the path to the image you want to visualize
-image_path = "c:\\sulijoa_ai\\deep-learning-model\\model#1\\dataset\\Valid\\ramen\\5606.jpg"  # Update with the actual path
+image_path = "C:\model-serving\model\dataset_preprocessed\Valid\0_Img_058_0209.jpg"  # Update with the actual path
 
 # Specify the class names
-class_names = image_datasets['Train'].classes  # Update with the actual class names
+class_names = list(set(datasets['Train'].labels))  # 클래스 정보를 이용하여 중복을 제거하고 리스트로 변환
 
 # Visualize the single image
 visualize_single_image(model_1, image_path, class_names)
