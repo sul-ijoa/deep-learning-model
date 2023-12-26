@@ -2,38 +2,49 @@ from flask import Flask, request, jsonify
 import io
 import os
 import json
-import numpy as np
-
 from google.cloud import vision
-from keras.preprocessing.image import img_to_array, load_img
-from keras.models import load_model
-from tensorflow.python.keras.utils import np_utils
+from PIL import Image
+import torch
+import torch.nn as nn
+from torchvision.models import resnet18
+from torchvision import transforms
 
 from flask_cors import CORS
 
 app = Flask(__name__)
+
 # localhost:3000에서의 요청을 허용
 CORS(app, origins='http://localhost:3000')
 
 # 음식 라벨 정보 가져오기
-food_label_path = 'model/food_label.json'
+food_label_path = 'food_label.json'
 with open(food_label_path, 'r', encoding='utf-8') as json_file:
     food_label = json.load(json_file)
 
-# 헉습 모델 가져오기
-model_path = 'model/1vgg19_finetuned.h5'
-model = load_model(model_path)
+# num_classes 설정
+num_classes = len(food_label)
+
+# ResNet18 모델 정의
+model = resnet18(pretrained=False)  # 이 부분을 미리 정의한 모델로 바꿔주세요
+num_ftrs = model.fc.in_features
+model.fc = nn.Linear(num_ftrs, num_classes)  # 이 부분도 데이터셋의 클래스 수에 맞게 수정해주세요
+
+# 학습된 가중치를 로드
+model_path = 'model.pth'
+model.load_state_dict(torch.load(model_path))
+model.eval()  # 모델을 평가 모드로 설정
 
 # 이미지 전처리
 def preprocess_image(img_content):
-    img = load_img(io.BytesIO(img_content), target_size=(224, 224))
-    img = img_to_array(img)
-    img = np.expand_dims(img, axis=0)
-    return img / 255.0  # Rescale
-
-# 이미지에서 라벨 가져오기
-def get_true_label(img_path):
-    return int(os.path.basename(img_path).split("_")[0])
+    img = Image.open(io.BytesIO(img_content)).convert('RGB')
+    transform = transforms.Compose([
+        transforms.Resize((224, 224)),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    ])
+    img = transform(img)
+    img = img.unsqueeze(0)  # 배치 차원 추가
+    return img
 
 # Google Cloud Vision API 클라이언트 설정
 key_file_path = 'C:/GoogleCloudVision-key/service_key.json'
@@ -74,19 +85,20 @@ def analyze_image():
             else:
                 pred_img = preprocess_image(image_content)
                 
-                pred_result = model.predict(pred_img)
-                pred_index = str(np.argmax(pred_result))
+                with torch.no_grad():
+                    pred_result = model(pred_img)
+                pred_index = torch.argmax(pred_result).item()
                 print("예측 푸드 인덱스 : ", pred_index)
                 
                 # food_label.json에서 해당 푸드 인덱스에 대한 정보 가져오기
-                predicted_result = food_label[pred_index]
+                predicted_result = food_label[str(pred_index)]
                 json.dumps(predicted_result, indent=4) if predicted_result else None
                 
-                return predicted_result, 200
+                return jsonify(predicted_result), 200
             
         else:
             return jsonify({'status': 'error', 'message': '음식이 아님'}), 500
-
+        
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
