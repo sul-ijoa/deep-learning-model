@@ -9,7 +9,12 @@ import torch.nn as nn
 from torchvision.models import resnet18
 from torchvision import transforms
 
+from flask_cors import CORS
+
 app = Flask(__name__)
+
+# localhost:3000에서의 요청을 허용
+CORS(app, origins='http://localhost:3000')
 
 # 음식 라벨 정보 가져오기
 food_label_path = 'food_label.json'
