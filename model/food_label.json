@@ -1,0 +1,290 @@
+{
+    "0": {
+        "menu": "마라샹궈",
+        "category": "chinese"
+    },
+    "1": {
+        "menu": "마라탕",
+        "category": "chinese"
+    },
+    "2": {
+        "menu": "만두",
+        "category": "chinese"
+    },
+    "3": {
+        "menu": "짜장면",
+        "category": "chinese"
+    },
+    "4": {
+        "menu": "짬뽕",
+        "category": "chinese"
+    },
+    "5": {
+        "menu": "칠리새우",
+        "category": "chinese"
+    },
+    "6": {
+        "menu": "크림새우",
+        "category": "chinese"
+    },
+    "7": {
+        "menu": "탕수육",
+        "category": "chinese"
+    },
+    "8": {
+        "menu": "훠궈",
+        "category": "chinese"
+    },
+    "9": {
+        "menu": "마른안주",
+        "category": "hope/chicken"
+    },
+    "10": {
+        "menu": "치킨",
+        "category": "hope/chicken"
+    },
+    "11": {
+        "menu": "꼬치",
+        "category": "hope/chicken"
+    },
+    "12": {
+        "menu": "나베",
+        "category": "japanese"
+    },
+    "13": {
+        "menu": "돈카츠",
+        "category": "japanese"
+    },
+    "14": {
+        "menu": "라멘",
+        "category": "japanese"
+    },
+    "15": {
+        "menu": "메로구이",
+        "category": "japanese"
+    },
+    "16": {
+        "menu": "사시미",
+        "category": "japanese"
+    },
+    "17": {
+        "menu": "우니동",
+        "category": "japanese"
+    },
+    "18": {
+        "menu": "소바",
+        "category": "japanese"
+    },
+    "19": {
+        "menu": "연어동",
+        "category": "japanese"
+    },
+    "20": {
+        "menu": "오코노미야끼",
+        "category": "japanese"
+    },
+    "21": {
+        "menu": "우동",
+        "category": "japanese"
+    },
+    "22": {
+        "menu": "초밥",
+        "category": "japanese"
+    },
+    "23": {
+        "menu": "타코야끼",
+        "category": "japanese"
+    },
+    "24": {
+        "menu": "텐동",
+        "category": "japanese"
+    },
+    "25": {
+        "menu": "호르몬동",
+        "category": "japanese"
+    },
+    "26": {
+        "menu": "갈비찜",
+        "category": "korean"
+    },
+    "27": {
+        "menu": "감자전",
+        "category": "korean"
+    },
+    "28": {
+        "menu": "감자탕",
+        "category": "korean"
+    },
+    "29": {
+        "menu": "계란말이",
+        "category": "korean"
+    },
+    "30": {
+        "menu": "골뱅이무침",
+        "category": "hope/chicken"
+    },
+    "31": {
+        "menu": "곱창구이",
+        "category": "korean"
+    },
+    "32": {
+        "menu": "김치볶음밥",
+        "category": "korean"
+    },
+    "33": {
+        "menu": "김치찌개",
+        "category": "korean"
+    },
+    "34": {
+        "menu": "김치찜",
+        "category": "korean"
+    },
+    "35": {
+        "menu": "닭갈비",
+        "category": "korean"
+    },
+    "36": {
+        "menu": "닭똥집튀김",
+        "category": "korean"
+    },
+    "37": {
+        "menu": "닭발",
+        "category": "korean"
+    },
+    "38": {
+        "menu": "닭볶음탕",
+        "category": "korean"
+    },
+    "39": {
+        "menu": "된장찌개",
+        "category": "korean"
+    },
+    "40": {
+        "menu": "두부김치",
+        "category": "korean"
+    },
+    "41": {
+        "menu": "떡볶이",
+        "category": "korean"
+    },
+    "42": {
+        "menu": "라면",
+        "category": "korean"
+    },
+    "43": {
+        "menu": "매운탕",
+        "category": "korean"
+    },
+    "44": {
+        "menu": "보쌈",
+        "category": "korean"
+    },
+    "45": {
+        "menu": "삼겹살",
+        "category": "korean"
+    },
+    "46": {
+        "menu": "설렁탕",
+        "category": "korean"
+    },
+    "47": {
+        "menu": "수육",
+        "category": "korean"
+    },
+    "48": {
+        "menu": "순두부찌개",
+        "category": "korean"
+    },
+    "49": {
+        "menu": "족발",
+        "category": "korean"
+    },
+    "50": {
+        "menu": "주꾸미볶음",
+        "category": "korean"
+    },
+    "51": {
+        "menu": "주먹밥",
+        "category": "korean"
+    },
+    "52": {
+        "menu": "쫄면",
+        "category": "korean"
+    },
+    "53": {
+        "menu": "찜닭",
+        "category": "korean"
+    },
+    "54": {
+        "menu": "파전",
+        "category": "korean"
+    },
+    "55": {
+        "menu": "해물찜",
+        "category": "korean"
+    },
+    "56": {
+        "menu": "훈제오리",
+        "category": "korean"
+    },
+    "57": {
+        "menu": "감자튀김",
+        "category": "western"
+    },
+    "58": {
+        "menu": "까르보나라",
+        "category": "western"
+    },
+    "59": {
+        "menu": "나쵸",
+        "category": "western"
+    },
+    "60": {
+        "menu": "리조또",
+        "category": "western"
+    },
+    "61": {
+        "menu": "맥앤치즈",
+        "category": "western"
+    },
+    "62": {
+        "menu": "볼로네제",
+        "category": "western"
+    },
+    "63": {
+        "menu": "스테이크",
+        "category": "western"
+    },
+    "64": {
+        "menu": "오믈렛",
+        "category": "western"
+    },
+    "65": {
+        "menu": "치즈플래터",
+        "category": "western"
+    },
+    "66": {
+        "menu": "치킨윙",
+        "category": "western"
+    },
+    "67": {
+        "menu": "카프레제",
+        "category": "western"
+    },
+    "68": {
+        "menu": "타코",
+        "category": "western"
+    },
+    "69": {
+        "menu": "피자",
+        "category": "western"
+    },
+    "70": {
+        "menu": "핫도그",
+        "category": "western"
+    },
+    "71": {
+        "menu": "햄버거",
+        "category": "western"
+    }
+}

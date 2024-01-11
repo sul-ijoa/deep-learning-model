@@ -17,7 +17,7 @@ app = Flask(__name__)
 CORS(app, origins='http://localhost:3000')
 
 # 음식 라벨 정보 가져오기
-food_label_path = 'food_label.json'
+food_label_path = 'C:/Users/Ahn Yoon Ju/OneDrive/바탕 화면/sul-ijoa/deep-learning-model/model/food_label.json'
 with open(food_label_path, 'r', encoding='utf-8') as json_file:
     food_label = json.load(json_file)
 
@@ -30,7 +30,7 @@ num_ftrs = model.fc.in_features
 model.fc = nn.Linear(num_ftrs, num_classes)  # 이 부분도 데이터셋의 클래스 수에 맞게 수정해주세요
 
 # 학습된 가중치를 로드
-model_path = 'model.pth'
+model_path = 'C:/Users/Ahn Yoon Ju/OneDrive/바탕 화면/sul-ijoa/deep-learning-model/model/model.pth'
 model.load_state_dict(torch.load(model_path))
 model.eval()  # 모델을 평가 모드로 설정
 
@@ -47,7 +47,7 @@ def preprocess_image(img_content):
     return img
 
 # Google Cloud Vision API 클라이언트 설정
-key_file_path = 'C:/GoogleCloudVision-key/service_key.json'
+key_file_path = 'C:/lustrous-spirit-407608-d1c17a2817bc.json'
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = key_file_path
 client = vision.ImageAnnotatorClient()
 
